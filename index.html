@@ -149,7 +149,7 @@ const sampleMenu = [
 // ---------- Fetch menu from Google Sheet CSV ----------
 async function fetchMenuFromSheet(){
   const sheetId = CONFIG.SHEET_ID;
-  if(!sheetId || sheetId === 'REPLACE_WITH_SHEET_ID') return null;
+  if(!sheetId || sheetId === '1YbUZI6XTitr9lvO83yJPP8nLhJGr8i3d_mNsYGasZ5E') return null;
   const url = CONFIG.SHEET_CSV_URL(sheetId);
   try{
     const res = await fetch(url);
