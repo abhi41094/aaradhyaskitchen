@@ -1,0 +1,250 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Aaradhya's Kitchen — Your taste is our priority</title>
+  <meta name="description" content="Aaradhya's Kitchen — Order via WhatsApp. Free delivery within 2km of Tapal Nakka, Panvel. UPI / COD accepted." />
+  <style>
+    :root{--accent:#d84315;--muted:#666;--bg:#fff}
+    body{font-family:Inter,system-ui,Segoe UI,Roboto,Arial;line-height:1.4;margin:0;background:var(--bg);color:#222}
+    header{background:linear-gradient(90deg,#fff 0,#fff 100%);padding:12px 16px;border-bottom:1px solid #eee;display:flex;align-items:center;gap:12px}
+    .logo{display:flex;align-items:center;gap:12px}
+    .logo img{height:56px;width:56px;object-fit:cover;border-radius:8px;border:1px solid #eee}
+    h1{margin:0;font-size:20px}
+    .tag{color:var(--muted);font-size:13px}
+    main{max-width:980px;margin:12px auto;padding:0 16px}
+    .grid{display:grid;grid-template-columns:1fr 340px;gap:16px}
+    .card{border:1px solid #eee;padding:12px;border-radius:10px;background:#fff}
+    .menu-item{display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px dashed #f0f0f0}
+    .menu-item:last-child{border-bottom:none}
+    .price{font-weight:600}
+    .controls{display:flex;gap:8px}
+    .btn{background:var(--accent);color:#fff;border:none;padding:8px 10px;border-radius:8px;cursor:pointer}
+    .secondary{background:#eee;color:#222}
+    .small{font-size:13px;padding:6px 8px}
+    .cart{position:sticky;top:18px}
+    .meta{font-size:13px;color:var(--muted)}
+    footer{max-width:980px;margin:18px auto;padding:12px 16px;color:var(--muted);font-size:13px}
+    .admin-toggle{background:transparent;border:1px dashed #ccc;padding:6px;border-radius:6px}
+    input,textarea,select{padding:8px;border:1px solid #ddd;border-radius:8px;width:100%;box-sizing:border-box}
+    .flex{display:flex;gap:8px;align-items:center}
+    .badge{background:#f7f7f7;border-radius:8px;padding:6px 8px;font-size:13px}
+    .notice{background:#fff8e1;border-left:4px solid #ffb300;padding:8px;margin:8px 0;border-radius:6px}
+    .banner{background:#fff3f0;border:1px solid #ffd6cc;color:#6b2a18;padding:10px;border-radius:8px;margin:12px 0;text-align:center}
+    @media(max-width:880px){.grid{grid-template-columns:1fr} .cart{position:static} .logo img{height:48px;width:48px}}
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo">
+      <img src="assets/Aaradhyas_Kitchen.jpg" alt="Aaradhya's Kitchen logo" />
+      <div>
+        <h1>Aaradhya's Kitchen</h1>
+        <div class="tag">Your taste is our priority</div>
+        <div class="meta">WhatsApp orders: <a href="https://wa.me/918928134960" target="_blank">+91 89281 34960</a></div>
+      </div>
+    </div>
+    <div style="margin-left:auto;text-align:right">
+      <div class="meta">Free delivery within 2 km (Tapal Nakka, Panvel)</div>
+    </div>
+  </header>
+
+  <main>
+    <div class="banner">Free delivery within <strong>2 km</strong> radius of Tapal Nakka, Panvel</div>
+
+    <div class="grid">
+      <section>
+        <div class="card">
+          <h2>Menu</h2>
+          <div id="menu-list" style="margin-top:8px"></div>
+        </div>
+
+        <div class="card" style="margin-top:12px">
+          <h3>Order</h3>
+          <div class="meta">Each dish has a WhatsApp order button (quantity & delivery address prompt). Payments: UPI / COD.</div>
+          <div id="cart-contents" style="margin-top:8px"></div>
+        </div>
+
+        <div class="card" style="margin-top:12px">
+          <h3>Opening hours</h3>
+          <pre class="meta">Mon - Sun : 08:00 – 22:30</pre>
+
+          <h3 style="margin-top:8px">Address</h3>
+          <div class="meta">Gupta Building, Mahatma Gandhi Rd, Tapal Naka, Mominpada, Old Panvel, Panvel, Navi Mumbai, Maharashtra 410206</div>
+          <div style="margin-top:8px"><a href="https://share.google/7ijvVmMsq4L5CqRUr" target="_blank">Open location on Google Maps</a></div>
+        </div>
+      </section>
+
+      <aside class="cart">
+        <div class="card">
+          <h3>UPI Payment</h3>
+          <div class="meta">UPI ID: <strong id="upi-id-display">nsg06041987@okicici</strong></div>
+          <div style="margin-top:8px;text-align:center">
+            <img id="upi-qr" alt="UPI QR" style="width:220px;height:220px;background:#fff;border-radius:8px;border:1px solid #eee" />
+          </div>
+          <div style="margin-top:8px;text-align:center">
+            <button id="download-menu" class="btn small">Download Menu (PDF)</button>
+          </div>
+        </div>
+
+        <div class="card" style="margin-top:12px">
+          <h3>Admin / Test Mode</h3>
+          <div class="meta">Menu is loaded from Google Sheets (single source of truth). Use Test Mode to edit locally (not persisted to Sheets).</div>
+          <div style="display:flex;gap:8px;margin-top:8px;align-items:center">
+            <label class="small">Test Mode</label>
+            <input id="test-mode" type="checkbox" />
+          </div>
+        </div>
+      </aside>
+    </div>
+  </main>
+
+  <footer>
+    © Aaradhya's Kitchen — Your taste is our priority • WhatsApp: +91 89281 34960<br/>
+    All types of bulk orders are accepted here! For more details call us on +91 89281 34960
+  </footer>
+
+<script>
+/*
+  Notes:
+  - Replace SHEET_ID with your published Google Sheet ID below.
+  - To publish: In Google Sheets -> File -> Share -> Publish to web -> CSV (or entire sheet).
+  - Published CSV URL format used: https://docs.google.com/spreadsheets/d/SHEET_ID/gviz/tq?tqx=out:csv
+*/
+
+// ---------- Configuration ----------
+const CONFIG = {
+  SHEET_ID: 'REPLACE_WITH_SHEET_ID', // <- replace after you publish & copy your Sheet ID
+  SHEET_CSV_URL: function(id){ return `https://docs.google.com/spreadsheets/d/${id}/gviz/tq?tqx=out:csv`; },
+  WHATSAPP_NUMBER: '918928134960',
+  UPI_ID: 'nsg06041987@okicici',
+  KITCHEN_COORDS: {lat:18.9825, lng:73.1216}, // optional, for reference
+};
+
+// ---------- Utility functions ----------
+function el(tag, attrs={}, inner=''){ const node = document.createElement(tag); for(const k in attrs){ if(k==='class') node.className = attrs[k]; else node.setAttribute(k, attrs[k]); } if(typeof inner === 'string') node.innerHTML = inner; else if(inner) node.appendChild(inner); return node; }
+
+function csvToArray(str){
+  const lines = str.trim().split('\n');
+  const headers = lines.shift().split(',').map(h=>h.trim());
+  return lines.map(line=>{
+    const cols = line.split(',').map(c=>c.trim());
+    const obj = {};
+    headers.forEach((h,i)=> obj[h]=cols[i] ? cols[i].replace(/^"|"$/g,'') : '');
+    return obj;
+  });
+}
+
+// ---------- Sample fallback menu (used if Google Sheet not configured) ----------
+const sampleMenu = [
+  {Name:'Paneer Butter Masala', Price:'220', Description:'Rich tomato-based curry with paneer'},
+  {Name:'Veg Biryani', Price:'180', Description:'Aromatic basmati rice with spices'},
+  {Name:'Dal Tadka', Price:'120', Description:'Yellow lentils tempered with ghee'},
+  {Name:'Butter Naan (2 pcs)', Price:'60', Description:'Soft, fluffy, oven-baked bread'},
+  {Name:'Chole Bhature', Price:'150', Description:'Spiced chickpeas with fried bread'},
+  {Name:'Veg Hakka Noodles', Price:'160', Description:'Indo-Chinese style stir-fried noodles'}
+];
+
+// ---------- Fetch menu from Google Sheet CSV ----------
+async function fetchMenuFromSheet(){
+  const sheetId = CONFIG.SHEET_ID;
+  if(!sheetId || sheetId === 'REPLACE_WITH_SHEET_ID') return null;
+  const url = CONFIG.SHEET_CSV_URL(sheetId);
+  try{
+    const res = await fetch(url);
+    if(!res.ok) throw new Error('Network response not ok');
+    const txt = await res.text();
+    const arr = csvToArray(txt);
+    return arr;
+  }catch(err){
+    console.warn('Failed to load sheet:', err);
+    return null;
+  }
+}
+
+// ---------- Render menu ----------
+function renderMenu(menu){
+  const container = document.getElementById('menu-list');
+  container.innerHTML = '';
+  menu.forEach((item, idx)=>{
+    const id = 'm'+idx;
+    const row = el('div',{class:'menu-item'});
+    const left = el('div',{},`<strong>${item.Name}</strong><div class="meta">${item.Description||''}</div>`);
+    const right = el('div',{},`<div class="price">₹ ${item.Price}</div>`);
+    const controls = el('div',{class:'controls'});
+    const orderBtn = el('button',{class:'btn small'},'Order via WhatsApp');
+    orderBtn.addEventListener('click',()=> openWhatsAppOrder(item));
+    controls.appendChild(orderBtn);
+    right.appendChild(controls);
+    row.appendChild(left);
+    row.appendChild(right);
+    container.appendChild(row);
+  });
+}
+
+// ---------- WhatsApp order flow ----------
+function openWhatsAppOrder(item){
+  const base = `Hello Aaradhya's Kitchen,%0AI'd like to order: ${encodeURIComponent(item.Name)}%0AQuantity: [please specify]%0ADelivery Address: [please specify]%0APayment Mode: UPI / Cash on Delivery%0A%0AThanks`;
+  const url = `https://wa.me/${CONFIG.WHATSAPP_NUMBER}?text=${base}`;
+  window.open(url, '_blank');
+}
+
+// ---------- UPI QR generation ----------
+function refreshUpiQr(amount=0){
+  const pa = encodeURIComponent(CONFIG.UPI_ID);
+  const pn = encodeURIComponent("Aaradhya's Kitchen");
+  const tn = encodeURIComponent("Order from Aaradhya's Kitchen");
+  const am = amount ? amount.toFixed(2) : '';
+  const upiLink = `upi://pay?pa=${pa}&pn=${pn}&tn=${tn}&am=${am}&cu=INR`;
+  const qr = 'https://chart.googleapis.com/chart?chs=300x300&cht=qr&chl=' + encodeURIComponent(upiLink);
+  document.getElementById('upi-qr').src = qr;
+  document.getElementById('upi-id-display').innerText = CONFIG.UPI_ID;
+}
+
+// ---------- PDF Download (client-side simple) ----------
+function downloadMenuPdf(menu){
+  // Simple printable HTML in new window — users can Print->Save as PDF
+  const win = window.open('', '_blank');
+  let html = `<html><head><title>Menu - Aaradhya's Kitchen</title></head><body><h1>Aaradhya's Kitchen - Menu</h1><table style="width:100%;border-collapse:collapse">`;
+  menu.forEach(it=>{
+    html += `<tr><td style="padding:8px;border-bottom:1px solid #eee;"><strong>${it.Name}</strong><div>${it.Description||''}</div></td><td style="padding:8px;border-bottom:1px solid #eee;text-align:right">₹ ${it.Price}</td></tr>`;
+  });
+  html += `</table></body></html>`;
+  win.document.write(html);
+  win.document.close();
+  win.focus();
+}
+
+// ---------- Init ----------
+async function init(){
+  refreshUpiQr();
+  const sheetMenu = await fetchMenuFromSheet();
+  const menu = (document.getElementById('test-mode').checked) ? sampleMenu : (sheetMenu && sheetMenu.length ? sheetMenu : sampleMenu);
+  renderMenu(menu);
+}
+
+// Event bindings
+document.getElementById('download-menu').addEventListener('click',()=> {
+  // use current rendered menu
+  const nodes = document.querySelectorAll('#menu-list .menu-item');
+  if(nodes.length===0){ alert('No menu to download'); return; }
+  const menu=[];
+  nodes.forEach(n=>{
+    const name = n.querySelector('strong').innerText;
+    const desc = n.querySelector('.meta') ? n.querySelector('.meta').innerText : '';
+    const price = n.querySelector('.price').innerText.replace('₹','').trim();
+    menu.push({Name:name, Price:price, Description:desc});
+  });
+  downloadMenuPdf(menu);
+});
+
+// reload menu when toggling test mode
+document.getElementById('test-mode').addEventListener('change', init);
+
+// run on load
+init();
+
+</script>
+</body>
+</html>
