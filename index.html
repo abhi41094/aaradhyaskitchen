@@ -115,7 +115,7 @@
 
 // ---------- Configuration ----------
 const CONFIG = {
-  SHEET_ID: '1YbUZI6XTitr9lvO83yJPP8nLhJGr8i3d_mNsYGasZ5E', // <- replace after you publish & copy your Sheet ID
+  SHEET_ID: 'REPLACE_WITH_SHEET_ID', // <- replace after you publish & copy your Sheet ID
   SHEET_CSV_URL: function(id){ return `https://docs.google.com/spreadsheets/d/${id}/gviz/tq?tqx=out:csv`; },
   WHATSAPP_NUMBER: '918928134960',
   UPI_ID: 'nsg06041987@okicici',
@@ -149,7 +149,7 @@ const sampleMenu = [
 // ---------- Fetch menu from Google Sheet CSV ----------
 async function fetchMenuFromSheet(){
   const sheetId = CONFIG.SHEET_ID;
-  if(!sheetId || sheetId === '1YbUZI6XTitr9lvO83yJPP8nLhJGr8i3d_mNsYGasZ5E') return null;
+  if(!sheetId || sheetId === 'REPLACE_WITH_SHEET_ID') return null;
   const url = CONFIG.SHEET_CSV_URL(sheetId);
   try{
     const res = await fetch(url);
